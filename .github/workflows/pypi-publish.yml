@@ -12,27 +12,25 @@ jobs:
     name: 'Publish'
     runs-on: ubuntu-18.04
     steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
       - name: 'Check out the repo'
         uses: actions/checkout@v2
         with:
           repository: Ilhasoft/weni-protobuffers
           ref: ${{github.event.inputs.source-branch}}
+      - working-directory: ./python
       - name: 'Install Poetry'
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: |
+        run: |
           pip install -U pip
           pip install poetry
           poetry install
         env:
           POETRY_VIRTUALENVS_CREATE: false
       - name: 'Print Versão'
-        working-directory: ./python
         run: poetry version && ls
       - name: 'Update poetry version'
-        working-directory: ./python
         run: poetry version ${{github.event.inputs.package-version}}
       - name: 'Print Versão Depois'
-        working-directory: ./python
         run: poetry version && ls
