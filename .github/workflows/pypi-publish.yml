@@ -1,0 +1,16 @@
+name: 'Publish Weni Protobuffers in Pypi'
+on:
+  workflow_dispatch:
+    inputs:
+      source-branch:
+        description: 'Source branch (only branches inherited from main)'
+        required: true
+      package-version:
+        description: 'Package Version (0.0.1, 1.2.4, ...)'
+jobs:
+  publish:
+    name: 'Publish'
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Check out the repo
+        run: echo rodouuuuuuuuuuuuuuuu
