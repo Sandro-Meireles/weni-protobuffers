@@ -6,11 +6,23 @@ on:
         description: 'Source branch (only branches inherited from main)'
         required: true
       package-version:
-        description: 'Package Version (0.0.1, 1.2.4, ...)'
+        description: 'Package Version (2.0.0-alpha.0, 2.0.0-alpha.2, ...)'
 jobs:
   publish:
     name: 'Publish'
     runs-on: ubuntu-18.04
     steps:
-      - name: Check out the repo
-        run: echo rodouuuuuuuuuuuuuuuu
+      - name: 'Check out the repo'
+        uses: actions/checkout@v2
+        with:
+          repository: Ilhasoft/weni-protobuffers
+          ref: ${{github.event.inputs.source-branch}}
+      - name: 'Print Versão'
+        working-directory: ./python
+        run: poetry version && ls
+      - name: 'Update poetry version'
+        working-directory: ./python
+        run: poetry version ${{github.event.inputs.package-version}}
+      - name: 'Print Versão Depois'
+        working-directory: ./python
+        run: poetry version && ls
